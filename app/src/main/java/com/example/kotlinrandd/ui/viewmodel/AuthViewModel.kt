@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.kotlinrandd.data.repositories.UserReposirory
 import com.example.kotlinrandd.ui.auth.AuthListner
+import com.example.kotlinrandd.util.Coroutines
 
 class AuthViewModel : ViewModel() {
 
@@ -20,9 +21,21 @@ class AuthViewModel : ViewModel() {
         }
         //getting response from the repository here we to pass and show to login activity using Interface
 
-        val loginResponse= UserReposirory().userLogin(email!!,password!!)
+//        val loginResponse= UserReposirory().userLogin(email!!,password!!)
+//
+//        authListner?.onSuccess(loginResponse)
+        //video #6
+        Coroutines .main {
 
-        authListner?.onSuccess(loginResponse)
+            val response =UserReposirory().userLogin(email!!,password!!)
+            if (response.isSuccessful)
+            {
+                authListner?.onSuccess(response.body()?.user!!)
+            }
+            else{
+                authListner?.onFailure("Error code${response.code()}")
+            }
+        }
 
     }
 

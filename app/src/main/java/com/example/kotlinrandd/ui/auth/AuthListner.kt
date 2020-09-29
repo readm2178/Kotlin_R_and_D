@@ -1,10 +1,10 @@
 package com.example.kotlinrandd.ui.auth
 
-import androidx.lifecycle.LiveData
+import com.example.kotlinrandd.data.room.entities.User
 
 interface AuthListner {
 
     fun onStarted()
-    fun onSuccess(loginResponse: LiveData<String>)
+    fun onSuccess(user: User)
     fun onFailure(message : String)
 }

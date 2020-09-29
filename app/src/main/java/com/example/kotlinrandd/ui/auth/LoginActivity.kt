@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.kotlinrandd.R
+import com.example.kotlinrandd.data.room.entities.User
 import com.example.kotlinrandd.databinding.ActivityLoginBinding
 import com.example.kotlinrandd.ui.viewmodel.AuthViewModel
 import com.example.kotlinrandd.util.hide
@@ -35,17 +36,15 @@ class LoginActivity : AppCompatActivity(), AuthListner {
 
     }
 
-    override fun onSuccess(loginResponse: LiveData<String>) {
-        //oberver respose from the viewmodel
+    override fun onSuccess(user: User) {
         progress_bar.hide()
-        loginResponse.observe(this, Observer {
-            toast(it)
-        })
-
+        toast("${user.name} is logged in")
     }
 
     override fun onFailure(message: String) {
+        progress_bar.hide()
         toast(message)
-
     }
+
 }
+
